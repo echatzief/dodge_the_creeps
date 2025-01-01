@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://4vwrqjegqwpj"]
+[gd_scene load_steps=14 format=3 uid="uid://4vwrqjegqwpj"]
 
 [ext_resource type="Script" path="res://player.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://ftkxr8r4qghp" path="res://art/playerGrey_walk1.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://couyhcegeihme" path="res://art/playerGrey_walk2.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://b4yyoafu8bi0q" path="res://art/playerGrey_up1.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://bko65a0nd66st" path="res://art/playerGrey_up2.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://bd18w853f7yer" path="res://art/shield.png" id="6_2crpu"]
 
 [sub_resource type="SpriteFrames" id="1"]
 animations = [{
@@ -72,4 +73,17 @@ process_material = SubResource("7")
 texture = ExtResource("2")
 speed_scale = 2.0
 
+[node name="ShieldTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="Shield" type="Sprite2D" parent="."]
+position = Vector2(0, 0.999998)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_2crpu")
+
+[node name="ShieldCooldownTimer" type="Timer" parent="."]
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="ShieldTimer" to="." method="_on_shield_timer_timeout"]
+[connection signal="timeout" from="ShieldCooldownTimer" to="." method="_on_shield_cooldown_timer_timeout"]
